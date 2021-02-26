@@ -111,6 +111,7 @@ def _replace_transaction_properties(transaction: Transaction,
 
     narration = changes.get('narration', transaction.narration)
     payee = changes.get('payee', transaction.payee)
+    flag = changes.get('flag', transaction.flag)
     if narration is None:
         if payee is not None:
             narration = payee
@@ -118,7 +119,7 @@ def _replace_transaction_properties(transaction: Transaction,
         else:
             narration = ''
     return transaction._replace(
-        links=links, tags=tags, narration=narration, payee=payee)
+        links=links, tags=tags, narration=narration, payee=payee, flag=flag)
 
 
 unique_id_characters = string.ascii_uppercase + string.ascii_lowercase

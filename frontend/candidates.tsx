@@ -396,6 +396,13 @@ export class CandidatesComponent extends React.PureComponent<
               Fixme
             </button>
             <button
+              onClick={this.handleChangeFlag}
+              title="Toggle transaction flag between * and !"
+              className="action-button"
+            >
+              Flag
+            </button>
+            <button
               disabled={
                 selectedCandidate.original_transaction_properties == null
               }
@@ -427,7 +434,7 @@ export class CandidatesComponent extends React.PureComponent<
             </button>
           </div>
           <div className="action-button__group">
-          <button
+            <button
               onClick={this.handleConfirm}
               title="Confirm selected candidate, keyboard shortcut: enter"
               className="action-button"
@@ -512,6 +519,21 @@ export class CandidatesComponent extends React.PureComponent<
       </>
     );
   }
+
+  private handleChangeFlag = () => {
+    const candidateIndex = this.state.selectedCandidateIndex;
+    const candidate = this.props.candidates.candidates[candidateIndex];
+    const transaction = candidate.new_entries[0] as BeancountTransaction;
+    const flag = transaction.flag !== "*" ? "*" : "!";
+
+    executeServerCommand("change_candidate", {
+      generation: this.props.candidatesGeneration,
+      candidate_index: candidateIndex,
+      changes: {
+        flag
+      }
+    });
+  };
 
   private handleChangeTransactionProperties = (
     candidateIndex: number,
