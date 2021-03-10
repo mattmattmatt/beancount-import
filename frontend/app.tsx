@@ -291,8 +291,12 @@ class AppComponent
               <SplitChild
                 style={{
                   flexDirection: "column",
-                  borderLeft: !this.state.settingsCandidatesLeft ? "1px solid var(--color-nav-bg)" : "",
-                  borderRight: this.state.settingsCandidatesLeft ? "1px solid var(--color-nav-bg)" : "",
+                  borderLeft: !this.state.settingsCandidatesLeft
+                    ? "1px solid var(--color-nav-bg)"
+                    : "",
+                  borderRight: this.state.settingsCandidatesLeft
+                    ? "1px solid var(--color-nav-bg)"
+                    : "",
                   order: this.state.settingsCandidatesLeft ? 0 : 1
                 }}
               >
@@ -337,21 +341,20 @@ class AppComponent
                         candidateSelectionState={this.candidateSelectionState}
                       />
                     ) : (
-                      undefined
+                      <div
+                        style={{
+                          display: "flex",
+                          flex: 1,
+                          justifyContent: "center",
+                          alignItems: "center"
+                        }}
+                      >
+                        {hasCandidates && this.state.journalDirty
+                          ? "Candidates not available due to unsaved local edits to journal."
+                          : undefined}
+                        {!hasCandidates ? "No pending entries." : undefined}
+                      </div>
                     )}
-                    <div
-                      style={{
-                        display: "flex",
-                        flex: 1,
-                        justifyContent: "center",
-                        alignItems: "center"
-                      }}
-                    >
-                      {hasCandidates && this.state.journalDirty
-                        ? "Candidates not available due to unsaved local edits to journal."
-                        : undefined}
-                      {!hasCandidates ? "No pending entries." : undefined}
-                    </div>
                   </AppTabPanel>
                   <AppTabPanel>
                     <UnclearedPostingsComponent
